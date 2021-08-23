@@ -14,6 +14,7 @@ import json
 import os
 import timeit
 import functools
+import sorting
 
 def clearScreen():
     os.system('clear')
@@ -64,6 +65,17 @@ def promptForArgs(algorithms):
 def executeTest(data, sortingFunction, trials, repsPerTrial = 1):
     callback = functools.partial(sortingFunction, data)
     return timeit.repeat(callback, repeat=trials, number=repsPerTrial)
+
+sortingAlgorithms = [
+    ("Merge sort", sorting.merge),
+    ("Quicksort", sorting.quick),
+    ("Heapsort", sorting.minheap),
+    ("Insertion sort", sorting.selection),
+    ("Bubble sort", sorting.bubble),
+]
+
+print(sortingAlgorithms)
+quit()
 
 if len(sys.argv) < 2:
     raise RuntimeError("Not enough arguments provided.")
