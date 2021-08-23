@@ -14,7 +14,7 @@ if len(sys.argv) < 5:
     raise RuntimeError("Not enough arguments provided.")
 lower = float(sys.argv[1])
 upper = float(sys.argv[2])
-numCount = int(sys.argv[3])
+numCount = int(float(sys.argv[3]))
 filename = str(sys.argv[4])
 
 # Generate numbers
