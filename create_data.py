@@ -5,13 +5,17 @@
 # 3. The number of numbers to generate
 # 4. The name of the file to save to.
 
+import sys
 import random
 import json
 
-lower = 0
-upper = 0
-numCount = 0
-filename = ""
+# Setup variables
+if len(sys.argv) < 4:
+    raise RuntimeError("Not enough arguments provided.")
+lower = float(sys.argv[0])
+upper = float(sys.argv[1])
+numCount = int(sys.argv[2])
+filename = str(sys.argv[3])
 
 # Generate numbers
 numRange = upper - lower
