@@ -1,3 +1,6 @@
+# Custom pattern: prefix any file/folder with a tilde to ignore it.
+~*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
