@@ -40,19 +40,19 @@ def promptForArgs(algorithms):
             userResponse = input("\nTry again:\n")
     
     clearScreen()
-    userResponse = input("How many times to run?:\n")
+    userResponse = input("How many trials?:\n")
     while True:
         try:
-            timesToRun = int(userResponse)
+            numberOfTrials = int(userResponse)
         except ValueError:
             userResponse = input("Input is not a number. Try again:\n")
             continue
-        if timesToRun < 0:
+        if numberOfTrials < 0:
             userResponse = input("Input cannot be less than 0. Try again:\n")
         else:
             break
     
-    return algToUse, timesToRun
+    return algToUse, numberOfTrials
 
 # This function executes the actual time test / experiment.
 # Arguments:
@@ -74,12 +74,11 @@ sortingAlgorithms = [
     ("Bubble sort", sorting.bubble),
 ]
 
-print(sortingAlgorithms)
-quit()
-
 if len(sys.argv) < 2:
     raise RuntimeError("Not enough arguments provided.")
 dataFile = sys.argv[1]
 with open(dataFile, 'r') as file:
     data = json.load(file)
 
+algorithmToUse, numberOfTrials = promptForArgs(sortingAlgorithms)
+executeTest(data, algorithmToUse, numberOfTrials)
