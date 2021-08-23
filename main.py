@@ -85,6 +85,7 @@ if len(sys.argv) < 2:
 dataFile = sys.argv[1]
 with open(dataFile, 'r') as file:
     data = json.load(file)
+print(f"There are {len(data)} data entries in the loaded dataset.\n")
 
 while True:
     algorithmToUse, numberOfTrials = promptForArgs(sortingAlgorithms)
@@ -92,7 +93,7 @@ while True:
     clearScreen()
     print("Running trials...")
     testResults = executeTest(data, algorithmToUse, numberOfTrials)
-    
+
     clearScreen()
     printResults(testResults)
 
