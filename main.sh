@@ -2,12 +2,14 @@
 
 # This file is a task runner
 
+cd "$(dirname "$0")"
+
 case "$1" in
     'create-data')
-        python create_data.py
+        python create_data.py '-1e4' '1e4' '1e6' dataset.json
         ;;
     'run-test-program')
-        python main.py
+        python main.py dataset.json
         ;;
     *)
         echo 'No command specified'
