@@ -70,7 +70,7 @@ def executeTest(data, sortingFunction, trials, repsPerTrial = 1):
 # Arguments: a list of times taken to sort, in each trial.
 def printResults(listOfTimes):
     for i, timeOfTrial in enumerate(listOfTimes):
-        print(f"Trial {i}: {'%.5g' % timeOfTrial} seconds")
+        print(f"Trial {i+1}: {'%.5g' % timeOfTrial} seconds")
 
 sortingAlgorithms = [
     ("Merge sort", sorting.merge),
@@ -86,6 +86,18 @@ dataFile = sys.argv[1]
 with open(dataFile, 'r') as file:
     data = json.load(file)
 
-algorithmToUse, numberOfTrials = promptForArgs(sortingAlgorithms)
-testResults = executeTest(data, algorithmToUse, numberOfTrials)
-printResults(testResults)
+while True:
+    algorithmToUse, numberOfTrials = promptForArgs(sortingAlgorithms)
+
+    clearScreen()
+    print("Running trials...")
+    testResults = executeTest(data, algorithmToUse, numberOfTrials)
+    
+    clearScreen()
+    printResults(testResults)
+
+    userInput = input("\nType q to exit the program. Type any other key (or none) to restart the program.\n")
+    if userInput == 'q':
+        break
+    else:
+        clearScreen()
