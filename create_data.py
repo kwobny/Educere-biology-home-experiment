@@ -10,7 +10,7 @@ import random
 import json
 
 # Setup variables
-if len(sys.argv) < 4:
+if len(sys.argv) < 5:
     raise RuntimeError("Not enough arguments provided.")
 lower = float(sys.argv[1])
 upper = float(sys.argv[2])
