@@ -62,11 +62,8 @@ def promptForArgs(algorithms):
 # The function repeats the test <trials> number of times, and each time, it measures the total amount of time taken to execute the sorting <repsPerTrial> times.
 # Returns a list of the times taken for each trial of sorting to complete.
 def executeTest(data, sortingFunction, trials, repsPerTrial = 1):
-    results = []
     callback = functools.partial(sortingFunction, data)
-    for i in range(trials):
-        results.append(timeit.timeit(callback, number=repsPerTrial))
-    return results
+    return timeit.repeat(callback, repeat=trials, number=repsPerTrial)
 
 if len(sys.argv) < 2:
     raise RuntimeError("Not enough arguments provided.")
