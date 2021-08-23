@@ -10,7 +10,7 @@ case "$1" in
         ;;
     'run-experiment' | '')
         pip install sorting
-        python main.py dataset.json
+        python run_experiment.py dataset.json
         ;;
     *)
         echo 'Invalid command'
