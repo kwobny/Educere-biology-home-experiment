@@ -8,7 +8,7 @@ case "$1" in
     'create-data')
         python create_data.py '-1e4' '1e4' '1e6' dataset.json
         ;;
-    'run-test-program')
+    'run-experiment')
         python main.py dataset.json
         ;;
     *)
