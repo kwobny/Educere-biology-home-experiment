@@ -66,6 +66,12 @@ def executeTest(data, sortingFunction, trials, repsPerTrial = 1):
     callback = functools.partial(sortingFunction, data)
     return timeit.repeat(callback, repeat=trials, number=repsPerTrial)
 
+# This function prints the results of the trials.
+# Arguments: a list of times taken to sort, in each trial.
+def printResults(listOfTimes):
+    for i, timeOfTrial in enumerate(listOfTimes):
+        print(f"Trial {i}: {'%.5g' % timeOfTrial} seconds")
+
 sortingAlgorithms = [
     ("Merge sort", sorting.merge),
     ("Quicksort", sorting.quick),
@@ -81,4 +87,5 @@ with open(dataFile, 'r') as file:
     data = json.load(file)
 
 algorithmToUse, numberOfTrials = promptForArgs(sortingAlgorithms)
-executeTest(data, algorithmToUse, numberOfTrials)
+testResults = executeTest(data, algorithmToUse, numberOfTrials)
+printResults(testResults)
