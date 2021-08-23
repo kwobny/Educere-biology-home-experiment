@@ -12,12 +12,14 @@
 import sys
 import json
 import os
+import timeit
+import functools
 
 def clearScreen():
     os.system('clear')
 
 # This function prompts the user for the sorting algorithm to use, and the number of times to sort.
-# Parameters: A list of tuples. The tuple's first element should be the name (string) of the sorting algorithm. The second element should be the associated sorting function/object
+# Arguments: A list of tuples. The tuple's first element should be the name (string) of the sorting algorithm. The second element should be the associated sorting function/object
 # Returns a tuple containing the sorting algorithm to use (function/object) and the number of times (in that order).
 def promptForArgs(algorithms):
     print("Which sorting algorithm?: \n")
@@ -51,8 +53,20 @@ def promptForArgs(algorithms):
     
     return algToUse, timesToRun
 
-promptForArgs([('lol', object())])
-quit()
+# This function executes the actual time test / experiment.
+# Arguments:
+# 1. A reference to the data (list)
+# 2. Sorting function to use (should have one argument, which should be a list to sort)
+# 3. Number of trials
+# 4. Amount of times to run per trial.
+# The function repeats the test <trials> number of times, and each time, it measures the total amount of time taken to execute the sorting <repsPerTrial> times.
+# Returns a list of the times taken for each trial of sorting to complete.
+def executeTest(data, sortingFunction, trials, repsPerTrial = 1):
+    results = []
+    callback = functools.partial(sortingFunction, data)
+    for i in range(trials):
+        results.append(timeit.timeit(callback, number=repsPerTrial))
+    return results
 
 if len(sys.argv) < 2:
     raise RuntimeError("Not enough arguments provided.")
