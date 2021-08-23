@@ -14,18 +14,27 @@ import json
 import itertools
 
 # This function prompts the user for the sorting algorithm to use, and the number of times to sort.
-# Parameters: a dictionary with each key being the name of a sorting algorithm (string) and each associated value being an object containing the actual algorithm (function/object).
-# Returns a tuple containing the sorting algorithm to use and the number of times.
+# Parameters: A list of tuples. The tuple's first element should be the name (string) of the sorting algorithm. The second element should be the associated sorting function/object
+# Returns a tuple containing the sorting algorithm to use (function/object) and the number of times.
 def promptForArgs(algorithms):
     print("Which sorting algorithm?: \n")
     
     print("Options:")
-    for i, name in zip(itertools.count(start=1), algorithms):
+    for i, (name, _) in enumerate(algorithms):
         print(f"{i}. {name}")
     
     userResponse = input("\n")
+    while True:
+        try:
+            algToUse = algorithms[int(userResponse)][1]
+        except (IndexError, ValueError) as err:
+            print("Invalid input. Error:")
+            print(err)
+            userResponse = input("\nTry again:\n")
+            continue;
+        break;
 
-promptForArgs({'lol': object()})
+promptForArgs([('lol', object())])
 
 if len(sys.argv) < 2:
     raise RuntimeError("Not enough arguments provided.")
