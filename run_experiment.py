@@ -20,8 +20,8 @@ def clearScreen():
     os.system('clear')
 
 # This function prompts the user for the sorting algorithm to use, and the number of times to sort.
-# Arguments: A list of tuples. The tuple's first element should be the name (string) of the sorting algorithm. The second element should be the associated sorting function/object
-# Returns a tuple containing the sorting algorithm to use (function/object) and the number of times (in that order).
+# Arguments: A list of algorithms and information represented by tuples. Each tuple contains information on one algorithm. Each tuple's first element should be the name (string) of the sorting algorithm, and the rest of the elements of each tuple can be anything.
+# Returns a tuple. The first element is another tuple, which is the tuple corresponding to the algorithm chosen. The second element is the number of trials to run.
 def promptForArgs(algorithms):
     print("Which sorting algorithm?: \n")
     
@@ -32,7 +32,7 @@ def promptForArgs(algorithms):
     userResponse = input("\nType the number corresponding to an algorithm:\n")
     while True:
         try:
-            algToUse = algorithms[int(userResponse)-1][1]
+            algToUse = algorithms[int(userResponse)-1]
             break
         except (IndexError, ValueError) as err:
             print("Invalid input. Error:")
@@ -89,11 +89,13 @@ with open(dataFile, 'r') as file:
 print(f"There are {len(data)} data entries in the loaded dataset.\n")
 
 while True:
-    algorithmToUse, numberOfTrials = promptForArgs(sortingAlgorithms)
+    (algorithmName, algorithmFunc), numberOfTrials = promptForArgs(sortingAlgorithms)
 
     clearScreen()
+    print(f"Algorithm: {algorithmName}")
+    print(f"Number of trials: {numberOfTrials}")
     print("Running trials...\n")
-    trials = executeExperiment(data, algorithmToUse, numberOfTrials)
+    trials = executeExperiment(data, algorithmFunc, numberOfTrials)
     printResults(trials)
     print("\nDone")
 
