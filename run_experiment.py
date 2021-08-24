@@ -59,13 +59,12 @@ def promptForArgs(algorithms):
 # 1. A reference to the data (list)
 # 2. Sorting function to use (should have one argument, which should be a list to sort)
 # 3. Number of trials
-# 4. Amount of times to run per trial.
-# The function repeats the test <trials> number of times, and each time, it measures the total amount of time taken to execute the sorting <repsPerTrial> times.
+# Copies the data before each sorting, to account for in place sorting algorithms.
 # Yields the times taken for each trial of sorting to complete.
-def executeExperiment(data, sortingFunction, trials, repsPerTrial = 1):
-    callback = functools.partial(sortingFunction, data)
+def executeExperiment(data, sortingFunction, trials):
     for i in range(trials):
-        yield timeit.timeit(callback, number=repsPerTrial)
+        copyOfData = data.copy()
+        yield timeit.timeit(functools.partial(sortingFunction, copyOfData), number=1)
 
 # This function prints the results of the trials.
 # Arguments: a list of times taken to sort, or an iterator returning times taken to sort.
