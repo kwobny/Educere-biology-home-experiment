@@ -27,12 +27,12 @@ def promptForArgs(algorithms):
     
     print("Options:")
     for i, (name, _) in enumerate(algorithms):
-        print(f"{i}. {name}")
+        print(f"{i+1}. {name}")
     
     userResponse = input("\n")
     while True:
         try:
-            algToUse = algorithms[int(userResponse)][1]
+            algToUse = algorithms[int(userResponse)-1][1]
             break
         except (IndexError, ValueError) as err:
             print("Invalid input. Error:")
@@ -61,15 +61,16 @@ def promptForArgs(algorithms):
 # 3. Number of trials
 # 4. Amount of times to run per trial.
 # The function repeats the test <trials> number of times, and each time, it measures the total amount of time taken to execute the sorting <repsPerTrial> times.
-# Returns a list of the times taken for each trial of sorting to complete.
-def executeTest(data, sortingFunction, trials, repsPerTrial = 1):
+# Yields the times taken for each trial of sorting to complete.
+def executeExperiment(data, sortingFunction, trials, repsPerTrial = 1):
     callback = functools.partial(sortingFunction, data)
-    return timeit.repeat(callback, repeat=trials, number=repsPerTrial)
+    for i in range(trials):
+        yield timeit.timeit(callback, number=repsPerTrial)
 
 # This function prints the results of the trials.
-# Arguments: a list of times taken to sort, in each trial.
-def printResults(listOfTimes):
-    for i, timeOfTrial in enumerate(listOfTimes):
+# Arguments: a list of times taken to sort, or an iterator returning times taken to sort.
+def printResults(times):
+    for i, timeOfTrial in enumerate(times):
         print(f"Trial {i+1}: {'%.5g' % timeOfTrial} seconds")
 
 sortingAlgorithms = [
@@ -91,11 +92,10 @@ while True:
     algorithmToUse, numberOfTrials = promptForArgs(sortingAlgorithms)
 
     clearScreen()
-    print("Running trials...")
-    testResults = executeTest(data, algorithmToUse, numberOfTrials)
-
-    clearScreen()
-    printResults(testResults)
+    print("Running trials...\n")
+    trials = executeExperiment(data, algorithmToUse, numberOfTrials)
+    printResults(trials)
+    print("\nDone")
 
     userInput = input("\nType q to exit the program. Type any other key (or none) to restart the program.\n")
     if userInput == 'q':
