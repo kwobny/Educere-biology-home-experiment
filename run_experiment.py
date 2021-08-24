@@ -15,6 +15,7 @@ import os
 import timeit
 import functools
 import sorting
+import sorting_implementations as sortFuncs
 
 def clearScreen():
     os.system('clear')
@@ -75,9 +76,9 @@ def printResults(times):
 sortingAlgorithms = [
     ("Merge sort", sorting.merge),
     ("Quicksort", sorting.quick),
-    ("Heapsort", sorting.minheap),
-    ("Insertion sort", sorting.selection),
-    ("Bubble sort", sorting.bubble),
+    ("Heapsort", sortFuncs.heapSort),
+    ("Insertion sort", sortFuncs.insertionSort),
+    ("Bubble sort", sortFuncs.bubbleSort),
 ]
 
 if len(sys.argv) < 2:
