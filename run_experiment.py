@@ -29,7 +29,7 @@ def promptForArgs(algorithms):
     for i, (name, _) in enumerate(algorithms):
         print(f"{i+1}. {name}")
     
-    userResponse = input("\n")
+    userResponse = input("\nType the number corresponding to an algorithm:\n")
     while True:
         try:
             algToUse = algorithms[int(userResponse)-1][1]
