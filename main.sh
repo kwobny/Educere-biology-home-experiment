@@ -9,8 +9,6 @@ case "$1" in
         python create_data.py '-1e4' '1e4' '1e6' dataset.json
         ;;
     'run-experiment' | '')
-        pip install sorting
-        clear
         python run_experiment.py dataset.json
         ;;
     *)

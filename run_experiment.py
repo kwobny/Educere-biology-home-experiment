@@ -14,7 +14,6 @@ import json
 import os
 import timeit
 import functools
-import sorting
 import sorting_implementations as sortFuncs
 
 def clearScreen():
@@ -74,8 +73,8 @@ def printResults(times):
         print(f"Trial {i+1}: {'%.5g' % timeOfTrial} seconds")
 
 sortingAlgorithms = [
-    ("Merge sort", sorting.merge),
-    ("Quicksort", sorting.quick),
+    ("Merge sort", sortFuncs.mergeSort),
+    ("Quicksort", sortFuncs.quickSort),
     ("Heapsort", sortFuncs.heapSort),
     ("Insertion sort", sortFuncs.insertionSort),
     ("Bubble sort", sortFuncs.bubbleSort),
